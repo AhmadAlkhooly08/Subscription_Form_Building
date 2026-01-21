@@ -97,8 +97,8 @@ export const SecondView = function(){
             </div>
 
             <div class="flex justify-between items-center mt-8 w-[80%]">
-                <button id = 'btn-Back' class="back-btn">Go Back</button>
-                <button id = 'Next-Btn' class="btn-next px-4 py-2 text-lg">Next Step</button>
+                <button id ='btn-Back' class="back-btn">Go Back</button>
+                <button id ='Next-Btn' class="btn-next px-4 py-2 text-lg">Next Step</button>
             </div>
         </div>
     `
