@@ -47,39 +47,39 @@ export const SecondView = function(){
                 <p class="text-[#9d9ea4] text-sm">You have the option of monthly or yearly billing.</p>
             </div>
 
-            <div class="grid grid-cols-3 justify-items-center gap-8 w-[80%]">
+            <div id='sub-btns' class="grid grid-cols-3 justify-items-center gap-8 w-[80%]">
 
                 <div class="">
-                    <button class="sub-btn sub-active">
+                    <button id='sub-btn' class="sub-btn sub-active">
                         <img class="w-13" src="./assets/images/icon-arcade.svg" alt="">
 
                         <div class="flex flex-col items-start">
-                            <h1 class="text-[#032B57] text-xl font-bold">Arcade</h1>
-                            <p class="text-[#9d9ea4] text-sm">$9/mon</p>
+                            <h1 id='type-sub' class="text-[#032B57] text-xl font-bold">Arcade</h1>
+                            <p id='price-arcade' class="price text-[#9d9ea4] text-sm">$9/mon</p>
                             <p class="text-year text-[#032B57] text-xs font-light hidden">2 months free</p>
                         </div>
                     </button>
                 </div>
 
                 <div class="">
-                    <button class="sub-btn">
+                    <button id='sub-btn' class="sub-btn">
                         <img class="w-13" src="./assets/images/icon-advanced.svg" alt="">
 
                         <div class="flex flex-col items-start">
-                            <h1 class="text-[#032B57] text-xl font-bold">Advanced</h1>
-                            <p class="text-[#9d9ea4] text-sm">$12/mon</p>
+                            <h1 id='type-sub' class="text-[#032B57] text-xl font-bold">Advanced</h1>
+                            <p id='price-advanced' class="price text-[#9d9ea4] text-sm">$12/mon</p>
                             <p class="text-year text-[#032B57] text-xs font-light hidden">2 months free</p>
 
                         </div>
                     </button>
                 </div>
                 <div class="">
-                    <button class="sub-btn">
+                    <button id='sub-btn' class="sub-btn">
                         <img class="w-13" src="./assets/images/icon-pro.svg" alt="">
 
                         <div class="flex flex-col items-start">
-                            <h1 class="text-[#032B57] text-xl font-bold">Pro</h1>
-                            <p class="text-[#9d9ea4] text-sm">$15/mon</p>
+                            <h1 id='type-sub' class="text-[#032B57] text-xl font-bold">Pro</h1>
+                            <p id='price-pro' class="price text-[#9d9ea4] text-sm">$15/mon</p>
                             <p class="text-year text-[#032B57] text-xs font-light hidden">2 months free</p>
                         </div>
                     </button>
@@ -87,18 +87,72 @@ export const SecondView = function(){
             </div>
 
             <div class="flex justify-center items-center space-x-3 bg-[#f8f9fe] rounded-lg p-2 w-[80%]">
-                <h2 class="text-[#032B57] text-bold">Monthly</h2>
+                <h2 id='monthly' class="monthly activeSubType">Monthly</h2>
                 <label class="relative cursor-pointer">
-                    <input type="checkbox" class="sr-only peer">
+                    <input type="checkbox" id='checkbox' class="sr-only peer">
                     <div class="bg-[#032B57] rounded-full w-9 h-5 transition-all"></div>
                     <div class="absolute top-0.5 left-0.5  bg-white rounded-full w-4 h-4  peer-checked:translate-x-4 transition-transform duration-300"></div>
                 </label>
-                <h2 class="text-[#9d9ea4] text-bold peer-checked:text-[#032B57]">yearly</h2>
+                <h2 id='yearly' class="yearly unActiveSubType">yearly</h2>
             </div>
 
             <div class="flex justify-between items-center mt-8 w-[80%]">
                 <button id ='btn-Back' class="back-btn">Go Back</button>
                 <button id ='Next-Btn' class="btn-next px-4 py-2 text-lg">Next Step</button>
+            </div>
+        </div>
+    `
+}
+export const ThirdView = function(){
+    return`
+        <div class="flex flex-col items-center mt-10 space-y-8 w-full">
+            <div class="flex flex-col items-start space-y-3 w-[70%]">
+                <h1 class="text-[#032B57] text-3xl font-bold font-sans text-start">Pick add-ons</h1>
+                <p class="text-[#9d9ea4] text-sm">Add-ons help enhance your gaming experience.</p>
+            </div>
+
+            <div class="space-y-4 w-[70%]">
+                <div class="add-one sub-active">
+                    <div class="flex items-center">
+                        <input type="checkbox" class="size-4 accent-[#483CFF]">
+                        <div class="flec flex-col ml-4">
+                            <h1 class="text-[#032B57] font-bold font-sans">Online service</h1>
+                            <p class="text-[#9d9ea4] text-sm">Access to multiplayer games</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h1 class="text-[#746FC9]">+$1/mo</h1>
+                    </div>
+                </div>
+                <div class="add-one sub-active">
+                    <div class="flex items-center">
+                        <input type="checkbox" class="size-4 accent-[#483CFF]">
+                        <div class="flec flex-col ml-4">
+                            <h1 class="text-[#032B57] font-bold font-sans">Larger storage</h1>
+                            <p class="text-[#9d9ea4] text-sm">Extra 1TB of cloud save</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h1 class="text-[#746FC9]">+$2/mo</h1>
+                    </div>
+                </div>
+                <div class="add-one">
+                    <div class="flex items-center">
+                        <input type="checkbox" class="size-4 accent-[#483CFF]">
+                        <div class="flec flex-col ml-4">
+                            <h1 class="text-[#032B57] font-bold font-sans">Customizable Profile</h1>
+                            <p class="text-[#9d9ea4] text-sm">Custom theme on your profile</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h1 class="text-[#746FC9]">+$2/mo</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center mt-5 w-[70%]">
+                <button id ='btn-Back' class="btn-Back back-btn">Go Back</button>
+                <button id = 'Next-Btn' class="btn-next px-4 py-2 text-lg">Next Step</button>
             </div>
         </div>
     `
