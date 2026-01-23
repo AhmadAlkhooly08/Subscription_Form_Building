@@ -50,7 +50,7 @@ export const SecondView = function(){
             <div id='sub-btns' class="grid grid-cols-3 justify-items-center gap-8 w-[80%]">
 
                 <div class="">
-                    <button id='sub-btn' class="sub-btn sub-active">
+                    <button id='sub-btn' class="Arcade sub-btn sub-active">
                         <img class="w-13" src="./assets/images/icon-arcade.svg" alt="">
 
                         <div class="flex flex-col items-start">
@@ -62,7 +62,7 @@ export const SecondView = function(){
                 </div>
 
                 <div class="">
-                    <button id='sub-btn' class="sub-btn">
+                    <button id='sub-btn' class="Advanced sub-btn">
                         <img class="w-13" src="./assets/images/icon-advanced.svg" alt="">
 
                         <div class="flex flex-col items-start">
@@ -74,7 +74,7 @@ export const SecondView = function(){
                     </button>
                 </div>
                 <div class="">
-                    <button id='sub-btn' class="sub-btn">
+                    <button id='sub-btn' class="Pro sub-btn">
                         <img class="w-13" src="./assets/images/icon-pro.svg" alt="">
 
                         <div class="flex flex-col items-start">

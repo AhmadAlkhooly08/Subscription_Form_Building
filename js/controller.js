@@ -34,13 +34,8 @@ class Form{
             this._container.innerHTML = View.SecondView();
             this.renderStepsBtn('#btn-Back','click',this.renderBack.bind(this))
             this.renderStepsBtn('#Next-Btn','click',this.renderNext.bind(this))
-            AllData.SubscriptionDuration = 'Monthly';
-            AllData.SubscriptionType = 'Arcade';
-            AllData.SubscriptionPrice = '$9/mo';
-            AllData.SubscriptionPriceNum = 9;
-
-            this.renderStepsBtn('#checkbox','change',this.switchSub.bind(this))
             this.renderStepsBtn('#sub-btns','click',this.checkPlan.bind(this))
+            this.renderStepsBtn('#checkbox','change',this.switchSub.bind(this))
             this.renderStepActive();
         }
         if(this.#StepNumber === 3){
@@ -55,14 +50,60 @@ class Form{
 
     }
     renderNext(){
+        if(this.#StepNumber === 2 && !AllData.SubscriptionDuration && !AllData.SubscriptionType){
+            AllData.SubscriptionDuration = 'Monthly';
+            AllData.SubscriptionType = 'Arcade';
+            AllData.SubscriptionPrice = '$9/mo';
+            AllData.SubscriptionPriceNum = 9;
+        }
+
+        if(this.#StepNumber === 2 && !AllData.SubscriptionDuration){
+            AllData.SubscriptionDuration = 'Monthly';
+        }
         if(this.#StepNumber >= 1 && this.#StepNumber < 4) this.#StepNumber++;
         this.renderView();
         console.log(AllData);
+
     }
     renderBack(){
         if(this.#StepNumber >= 1) this.#StepNumber--;
         this.renderView();
         console.log(AllData);
+        if(this.#StepNumber === 1){
+            const inpName = document.querySelector('#inp-name');
+            const inpEmail = document.querySelector('#inp-email');
+            const inpPhone = document.querySelector('#inp-phone');
+            inpName.value = AllData.name;
+            inpEmail.value = AllData.email;
+            inpPhone.value = AllData.phone;
+        }
+        if(this.#StepNumber === 2){
+            
+            const allBtns = document.querySelectorAll('#sub-btn');
+            const btn = document.querySelector(`.${AllData.SubscriptionType}`);
+            console.log(btn);
+            allBtns.forEach(e=> e.classList.remove('sub-active'))
+            btn.classList.add('sub-active');
+
+            let unceheck = document.querySelector('#checkbox');
+            if(AllData.SubscriptionDuration == 'Monthly') unceheck.checked = false;
+            if(AllData.SubscriptionDuration == 'Yearly'){
+                const priceArcade = document.querySelector('#price-arcade')
+                const priceAdvanced = document.querySelector('#price-advanced')
+                const pricePro = document.querySelector('#price-pro')
+                const textYearly = document.querySelectorAll('.text-year')
+                priceArcade.innerText = '$90/уг';
+                priceAdvanced.innerText = '$120/уг';
+                pricePro.innerText = '$150/уг';
+                textYearly.forEach(e=> e.classList.remove('hidden'))
+                unceheck.checked = true;
+            }
+
+            // AllData.SubscriptionDuration = AllData.SubscriptionDuration;
+            // AllData.SubscriptionType = AllData.SubscriptionType;
+            // AllData.SubscriptionPrice = AllData.SubscriptionPrice;
+            // AllData.SubscriptionPriceNum = AllData.SubscriptionPriceNum;
+        }
     }
     submitFirstView(e){
         e.preventDefault();
@@ -109,14 +150,14 @@ class Form{
         const adjustData = data.filter(e=> e !== '')
         console.log(adjustData);
         //? If valid Next Step
-        if(adjustData.length === 3){
+        // if(adjustData.length === 3){
             data.forEach((e,i)=>{
                 return AllData[keys[i]] = e;
             })
             console.log(AllData);
             this.#StepNumber = 2;
             this.renderView()
-        }
+        // }
         // this.#StepNumber = 2;
         // this.renderView()
 
@@ -144,6 +185,8 @@ class Form{
             pricePro.innerText = '$150/уг';
             textYearly.forEach(e=> e.classList.remove('hidden'))
             AllData.SubscriptionDuration = 'Yearly';
+            const btns = document.querySelector('#sub-btns');
+            btns.addEventListener('click' ,this.checkPlan.bind(this))
         } 
         if(!check){
             adjustSub('unActiveSubType','ActiveSubType')
@@ -169,6 +212,7 @@ class Form{
         AllData.SubscriptionType = typeSub.innerText;
         AllData.SubscriptionPrice = price.innerText;
         AllData.SubscriptionPriceNum = +priceNum[0];
+        AllData.SubclickedBtn = btn;
         console.log(AllData);
     }
 }
