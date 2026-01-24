@@ -55,7 +55,7 @@ export const SecondView = function(){
 
                         <div class="flex flex-col items-start">
                             <h1 id='type-sub' class="text-[#032B57] text-xl font-bold">Arcade</h1>
-                            <p id='price-arcade' class="price text-[#9d9ea4] text-sm">$9/mon</p>
+                            <p id='price-sub' class=" text-[#9d9ea4] text-sm">$9/mon</p>
                             <p class="text-year text-[#032B57] text-xs font-light hidden">2 months free</p>
                         </div>
                     </button>
@@ -67,7 +67,7 @@ export const SecondView = function(){
 
                         <div class="flex flex-col items-start">
                             <h1 id='type-sub' class="text-[#032B57] text-xl font-bold">Advanced</h1>
-                            <p id='price-advanced' class="price text-[#9d9ea4] text-sm">$12/mon</p>
+                            <p id='price-sub' class=" text-[#9d9ea4] text-sm">$12/mon</p>
                             <p class="text-year text-[#032B57] text-xs font-light hidden">2 months free</p>
 
                         </div>
@@ -79,7 +79,7 @@ export const SecondView = function(){
 
                         <div class="flex flex-col items-start">
                             <h1 id='type-sub' class="text-[#032B57] text-xl font-bold">Pro</h1>
-                            <p id='price-pro' class="price text-[#9d9ea4] text-sm">$15/mon</p>
+                            <p id='price-sub' class=" text-[#9d9ea4] text-sm">$15/mon</p>
                             <p class="text-year text-[#032B57] text-xs font-light hidden">2 months free</p>
                         </div>
                     </button>
@@ -111,41 +111,41 @@ export const ThirdView = function(){
                 <p class="text-[#9d9ea4] text-sm">Add-ons help enhance your gaming experience.</p>
             </div>
 
-            <div class="space-y-4 w-[70%]">
-                <div class="add-one sub-active">
+            <div id='add-one-container' class="space-y-4 w-[70%]">
+                <div id='add-one-box' class="add-one">
                     <div class="flex items-center">
-                        <input type="checkbox" class="size-4 accent-[#483CFF]">
+                        <input id='add-one-check' type="checkbox" class="size-4 accent-[#483CFF]">
                         <div class="flec flex-col ml-4">
-                            <h1 class="text-[#032B57] font-bold font-sans">Online service</h1>
+                            <h1 id='add-one-type' class="text-[#032B57] font-bold font-sans">Online service</h1>
                             <p class="text-[#9d9ea4] text-sm">Access to multiplayer games</p>
                         </div>
                     </div>
                     <div>
-                        <h1 class="text-[#746FC9]">+$1/mo</h1>
+                        <h1 id='add-price' class="text-[#746FC9]">+$1/mo</h1>
                     </div>
                 </div>
-                <div class="add-one sub-active">
+                <div id='add-one-box' class="add-one">
                     <div class="flex items-center">
-                        <input type="checkbox" class="size-4 accent-[#483CFF]">
+                        <input id='add-one-check' type="checkbox" class="size-4 accent-[#483CFF]">
                         <div class="flec flex-col ml-4">
-                            <h1 class="text-[#032B57] font-bold font-sans">Larger storage</h1>
+                            <h1 id='add-one-type' class="text-[#032B57] font-bold font-sans">Larger storage</h1>
                             <p class="text-[#9d9ea4] text-sm">Extra 1TB of cloud save</p>
                         </div>
                     </div>
                     <div>
-                        <h1 class="text-[#746FC9]">+$2/mo</h1>
+                        <h1 id='add-price' class="text-[#746FC9]">+$2/mo</h1>
                     </div>
                 </div>
-                <div class="add-one">
+                <div id='add-one-box' class="add-one">
                     <div class="flex items-center">
-                        <input type="checkbox" class="size-4 accent-[#483CFF]">
+                        <input id='add-one-check' type="checkbox" class="size-4 accent-[#483CFF]">
                         <div class="flec flex-col ml-4">
-                            <h1 class="text-[#032B57] font-bold font-sans">Customizable Profile</h1>
+                            <h1 id='add-one-type' class="text-[#032B57] font-bold font-sans">Customizable Profile</h1>
                             <p class="text-[#9d9ea4] text-sm">Custom theme on your profile</p>
                         </div>
                     </div>
                     <div>
-                        <h1 class="text-[#746FC9]">+$2/mo</h1>
+                        <h1 id='add-price' class="text-[#746FC9]">+$2/mo</h1>
                     </div>
                 </div>
             </div>

@@ -43,6 +43,7 @@ class Form{
             this._container.innerHTML = '';
             this._container.innerHTML = View.ThirdView();
             this.renderStepsBtn('#btn-Back','click',this.renderBack.bind(this))
+            this.renderStepsBtn('#add-one-container','click',this.addOnesBox.bind(this))
             // this.renderStepsBtn('#Next-Btn','click',this.renderNext.bind(this))
 
             this.renderStepActive();
@@ -50,7 +51,7 @@ class Form{
 
     }
     renderNext(){
-        if(this.#StepNumber === 2 && !AllData.SubscriptionDuration && !AllData.SubscriptionType){
+        if(this.#StepNumber === 2 && !AllData.SubscriptionType){
             AllData.SubscriptionDuration = 'Monthly';
             AllData.SubscriptionType = 'Arcade';
             AllData.SubscriptionPrice = '$9/mo';
@@ -62,8 +63,8 @@ class Form{
         }
         if(this.#StepNumber >= 1 && this.#StepNumber < 4) this.#StepNumber++;
         this.renderView();
+        if(this.#StepNumber === 3 && AllData.SubscriptionDuration == 'Yearly') this.changeToYearlyNum('#add-price','+')
         console.log(AllData);
-
     }
     renderBack(){
         if(this.#StepNumber >= 1) this.#StepNumber--;
@@ -77,33 +78,7 @@ class Form{
             inpEmail.value = AllData.email;
             inpPhone.value = AllData.phone;
         }
-        if(this.#StepNumber === 2){
-            
-            const allBtns = document.querySelectorAll('#sub-btn');
-            const btn = document.querySelector(`.${AllData.SubscriptionType}`);
-            console.log(btn);
-            allBtns.forEach(e=> e.classList.remove('sub-active'))
-            btn.classList.add('sub-active');
-
-            let unceheck = document.querySelector('#checkbox');
-            if(AllData.SubscriptionDuration == 'Monthly') unceheck.checked = false;
-            if(AllData.SubscriptionDuration == 'Yearly'){
-                const priceArcade = document.querySelector('#price-arcade')
-                const priceAdvanced = document.querySelector('#price-advanced')
-                const pricePro = document.querySelector('#price-pro')
-                const textYearly = document.querySelectorAll('.text-year')
-                priceArcade.innerText = '$90/уг';
-                priceAdvanced.innerText = '$120/уг';
-                pricePro.innerText = '$150/уг';
-                textYearly.forEach(e=> e.classList.remove('hidden'))
-                unceheck.checked = true;
-            }
-
-            // AllData.SubscriptionDuration = AllData.SubscriptionDuration;
-            // AllData.SubscriptionType = AllData.SubscriptionType;
-            // AllData.SubscriptionPrice = AllData.SubscriptionPrice;
-            // AllData.SubscriptionPriceNum = AllData.SubscriptionPriceNum;
-        }
+        if(this.#StepNumber === 2) this.reGeneratesecondView()
     }
     submitFirstView(e){
         e.preventDefault();
@@ -157,19 +132,47 @@ class Form{
             console.log(AllData);
             this.#StepNumber = 2;
             this.renderView()
+            this.reGeneratesecondView()
         // }
         // this.#StepNumber = 2;
         // this.renderView()
 
     }
 
+    changeToYearlyNum(val,plus = undefined){
+        const allPrice =  document.querySelectorAll(val);
+        allPrice.forEach(e=>{
+            let num = e.innerText.match(/(\d+)/)
+            if(!num[0].includes('0')){
+                let yearlyNum =  +num[0] + '0'
+                return e.innerText = `${plus ? plus : ''}$${yearlyNum}/уг`;
+            }
+        })
+    }
+    reGeneratesecondView(){
+        if(AllData.SubscriptionType){
+            const allBtns = document.querySelectorAll('#sub-btn');
+            const btn = document.querySelector(`.${AllData.SubscriptionType}`);
+            allBtns.forEach(e=> e.classList.remove('sub-active'))
+            btn.classList.add('sub-active');
+    
+            let unceheck = document.querySelector('#checkbox');
+            if(AllData.SubscriptionDuration == 'Monthly') unceheck.checked = false;
+    
+            if(AllData.SubscriptionDuration == 'Yearly'){
+                const textYearly = document.querySelectorAll('.text-year')
+                this.changeToYearlyNum('#price-sub')
+                textYearly.forEach(e=> e.classList.remove('hidden'))
+                unceheck.checked = true;
+            }
+        }else{
+            return '';
+        }
+    }
     switchSub(e){
         const monthly = document.querySelector('.monthly')
         const yearly = document.querySelector('.yearly')
         let check = e.target.checked;
-        const priceArcade = document.querySelector('#price-arcade')
-        const priceAdvanced = document.querySelector('#price-advanced')
-        const pricePro = document.querySelector('#price-pro')
         const textYearly = document.querySelectorAll('.text-year')
         // console.log(check ? 'yearly' : 'monthly');
         const adjustSub = function(class1,class2){
@@ -178,30 +181,44 @@ class Form{
             yearly.classList.remove(class2)
             yearly.classList.add(class1)
         }
+        const adjustSubInfo = function(){
+            const btn = document.querySelector(`.${AllData.SubscriptionType}`);
+            const typeSub = btn.querySelector('#type-sub');
+            const price = btn.querySelector('#price-sub');
+            const priceNum = price.innerText.match(/(\d+)/);
+            AllData.SubscriptionType = typeSub.innerText;
+            AllData.SubscriptionPrice = price.innerText;
+            AllData.SubscriptionPriceNum = +priceNum[0];
+
+        }
         if(check){
             adjustSub('ActiveSubType','unActiveSubType')
-            priceArcade.innerText = '$90/уг';
-            priceAdvanced.innerText = '$120/уг';
-            pricePro.innerText = '$150/уг';
+            this.changeToYearlyNum('#price-sub')
             textYearly.forEach(e=> e.classList.remove('hidden'))
             AllData.SubscriptionDuration = 'Yearly';
-            const btns = document.querySelector('#sub-btns');
-            btns.addEventListener('click' ,this.checkPlan.bind(this))
+            if(AllData.SubscriptionType) adjustSubInfo();
         } 
         if(!check){
             adjustSub('unActiveSubType','ActiveSubType')
-            priceArcade.innerText = '$9/mon';
-            priceAdvanced.innerText = '$12/mon';
-            pricePro.innerText = '$15/mon';
+            const allPrice =  document.querySelectorAll('#price-sub');
+            allPrice.forEach(e=>{
+                let num = e.innerText.match(/(\d+)/)
+                if(num[0].includes('0')){
+                    let yearlyNum =  +num[0].slice(0,-1)
+                    return e.innerText = `$${yearlyNum}/mon`;
+                }
+            })            
             textYearly.forEach(e=> e.classList.add('hidden'))
             AllData.SubscriptionDuration = 'Monthly';
+            if(AllData.SubscriptionType) adjustSubInfo();
+
         } 
     }
     checkPlan(e){
         const allBtns = document.querySelectorAll('#sub-btn');
         const btn = e.target.closest('#sub-btn');
         const typeSub = e.target.closest('#sub-btn').querySelector('#type-sub');
-        const price = e.target.closest('#sub-btn').querySelector('.price');
+        const price = e.target.closest('#sub-btn').querySelector('#price-sub');
         const priceNum = price.innerText.match(/(\d+)/);
         console.log(typeSub.innerText,price.innerText);
 
@@ -214,6 +231,23 @@ class Form{
         AllData.SubscriptionPriceNum = +priceNum[0];
         AllData.SubclickedBtn = btn;
         console.log(AllData);
+    }
+
+    addOnesBox(e){
+        const box = e.target.closest('#add-one-box');
+        const checkBox = e.target.closest('#add-one-check');
+        if(!checkBox) return;
+        let data=[];
+        if(checkBox.checked){
+            box.classList.add('sub-active')
+            const type = box.querySelector('#add-one-type')
+            const typePrice = box.querySelector('#add-price')
+            data += data.push([type.innerText,typePrice.innerText])
+            console.log(data);
+        }
+        if(!checkBox.checked){
+            box.classList.remove('sub-active')
+        }
     }
 }
 new Form();
