@@ -22,14 +22,12 @@ class Form{
     renderView(){
         this._firstStep.classList.add('active');
         if(this.#StepNumber === 1){
-            console.log(this.#StepNumber);
             this._container.innerHTML = '';
             this._container.innerHTML = View.firstView();
             this.renderStepsBtn('#form','submit',this.submitFirstView.bind(this));
             this.renderStepActive();
         }
         if(this.#StepNumber === 2){
-            console.log(this.#StepNumber);
             this._container.innerHTML = '';
             this._container.innerHTML = View.SecondView();
             this.renderStepsBtn('#btn-Back','click',this.renderBack.bind(this))
@@ -39,13 +37,18 @@ class Form{
             this.renderStepActive();
         }
         if(this.#StepNumber === 3){
-            console.log(this.#StepNumber);
             this._container.innerHTML = '';
             this._container.innerHTML = View.ThirdView();
             this.renderStepsBtn('#btn-Back','click',this.renderBack.bind(this))
             this.renderStepsBtn('#add-one-container','click',this.addOnesBox.bind(this))
-            // this.renderStepsBtn('#Next-Btn','click',this.renderNext.bind(this))
+            this.renderStepsBtn('#Next-Btn','click',this.renderNext.bind(this))
 
+            this.renderStepActive();
+        }
+        if(this.#StepNumber === 4){
+            this._container.innerHTML = '';
+            this._container.innerHTML = View.ForthView();
+            this.renderStepsBtn('#btn-Back','click',this.renderBack.bind(this))
             this.renderStepActive();
         }
 
@@ -78,7 +81,21 @@ class Form{
             inpEmail.value = AllData.email;
             inpPhone.value = AllData.phone;
         }
-        if(this.#StepNumber === 2) this.reGeneratesecondView()
+        if(this.#StepNumber === 2) this.reGeneratesecondView();
+
+        if(this.#StepNumber === 3){
+            const Allboxes = document.querySelectorAll('#add-one-box');
+
+            Allboxes.forEach((el,i)=>{
+                const checkBox = el.querySelector('#add-one-check');
+                const type = el.querySelector('#add-one-type');
+                console.log(AllData.AddOnes[i][0]);
+                if(type.innerText === AllData?.AddOnes[i][0]){
+                    el.classList.add('sub-active')
+                    checkBox.checked = true;
+                }
+            })
+        }
     }
     submitFirstView(e){
         e.preventDefault();
@@ -233,21 +250,33 @@ class Form{
         console.log(AllData);
     }
 
+    _data=[];
     addOnesBox(e){
         const box = e.target.closest('#add-one-box');
-        const checkBox = e.target.closest('#add-one-check');
-        if(!checkBox) return;
-        let data=[];
-        if(checkBox.checked){
-            box.classList.add('sub-active')
-            const type = box.querySelector('#add-one-type')
-            const typePrice = box.querySelector('#add-price')
-            data += data.push([type.innerText,typePrice.innerText])
-            console.log(data);
+        if(!box) return;
+        const checkBox = box.querySelector('#add-one-check');
+        let type = box.querySelector('#add-one-type')
+        let typePrice = box.querySelector('#add-price')
+
+        if(box){
+            box.classList.toggle('sub-active')
+            if(box.classList.contains('sub-active')){
+                checkBox.checked = true;
+                const num = typePrice.innerText.match(/(\d+)/)
+                this._data.push([type.innerText,typePrice.innerText,+num[0]])
+
+            }
+            if(!box.classList.contains('sub-active')){
+                checkBox.checked = false;
+                const find = type.innerText;
+                let filtered = this._data.filter(el=> el[0] !== find)
+                this._data = filtered;
+            }
         }
-        if(!checkBox.checked){
-            box.classList.remove('sub-active')
-        }
+        console.log([...new Set(this._data)]);
+
+        AllData.AddOnes = [...new Set(this._data)];
+        console.log(AllData);
     }
 }
 new Form();

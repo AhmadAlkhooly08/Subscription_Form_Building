@@ -157,3 +157,43 @@ export const ThirdView = function(){
         </div>
     `
 }
+export const ForthView = function(){
+    return`
+        <div class="flex flex-col items-center mt-10 space-y-8 w-full">
+            <div class="flex flex-col items-start space-y-3 w-[70%]">
+                <h1 class="text-[#032B57] text-3xl font-bold font-sans text-start">Finishing up</h1>
+                <p class="text-[#9d9ea4] text-sm">Double-check everything looks OK before confirming.</p>
+            </div>
+
+            <div class="flex flex-col items-center w-[70%]">
+                <div class=" p-3 w-full bg-[#F8F9FE] rounded-lg">
+                    <div class="flex justify-between items-center w-full border-b-1 border-b-[#9d9ea4] p-3">
+                        <div class="flex flex-col items-start">
+                            <h1 class="text-[#032B57]">Arcade (Monthly)</h1>
+                            <button class="bg-transparent text-purple-600 hover:underline cursor-pointer">Change</button>
+                        </div>
+                        <h1 class="text-[#032B57] font-bold">$9/mo</h1>
+                    </div>
+
+                    <div class="flex justify-between items-center w-full mt-5 p-3">
+                        <p class="text-[#9d9ea4]">Online service</p>
+                        <h2 class="text-[#032B57]">+$1/mo</h2>
+                    </div>
+                    <div class="flex justify-between items-center w-full p-3">
+                        <p class="text-[#9d9ea4]">Larger storage</p>
+                        <h2 class="text-[#032B57]">+$2/mo</h2>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center w-[90%] pt-3">
+                    <p class="text-[#9d9ea4]">Total (per month)</p>
+                    <h2 class="text-purple-600 text-lg">+$12/mo</h2>
+                </div>
+            </div>
+            <div class="flex justify-between items-center mt-8 w-[70%]">
+                <button id ='btn-Back' class="btn-Back back-btn">Go Back</button>
+                <button id = 'confirm-Btn' class="btn-next px-5 py-2 text-lg bg-[#726ae3] hover:bg-[#938cfe]">Confirm</button>
+            </div>
+        </div>
+    `
+}
