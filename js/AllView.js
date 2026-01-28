@@ -159,13 +159,13 @@ export const ThirdView = function(){
 }
 export const ForthView = function(){
     return`
-        <div class="flex flex-col items-center mt-10 space-y-8 w-full">
+        <div class="flex flex-col items-center mt-10 space-y-8 w-full h-[90%]">
             <div class="flex flex-col items-start space-y-3 w-[70%]">
                 <h1 class="text-[#032B57] text-3xl font-bold font-sans text-start">Finishing up</h1>
                 <p class="text-[#9d9ea4] text-sm">Double-check everything looks OK before confirming.</p>
             </div>
 
-            <div class="flex flex-col items-center w-[70%]">
+            <div id='TotalPrice' class="flex flex-col items-center w-[70%]">
                 <div class=" p-3 w-full bg-[#F8F9FE] rounded-lg">
                     <div class="flex justify-between items-center w-full border-b-1 border-b-[#9d9ea4] p-3">
                         <div class="flex flex-col items-start">
@@ -190,9 +190,11 @@ export const ForthView = function(){
                     <h2 class="text-purple-600 text-lg">+$12/mo</h2>
                 </div>
             </div>
-            <div class="flex justify-between items-center mt-8 w-[70%]">
-                <button id ='btn-Back' class="btn-Back back-btn">Go Back</button>
-                <button id = 'confirm-Btn' class="btn-next px-5 py-2 text-lg bg-[#726ae3] hover:bg-[#938cfe]">Confirm</button>
+            <div class="flex items-end h-full w-[70%]">
+                <div class="flex justify-between items-center w-full">
+                    <button id ='btn-Back' class="btn-Back back-btn">Go Back</button>
+                    <button id = 'confirm-Btn' class="btn-next px-5 py-2 text-lg bg-[#726ae3] hover:bg-[#938cfe]">Confirm</button>
+                </div>
             </div>
         </div>
     `

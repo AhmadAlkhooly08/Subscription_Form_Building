@@ -48,6 +48,7 @@ class Form{
         if(this.#StepNumber === 4){
             this._container.innerHTML = '';
             this._container.innerHTML = View.ForthView();
+            this.adjustForthView();
             this.renderStepsBtn('#btn-Back','click',this.renderBack.bind(this))
             this.renderStepActive();
         }
@@ -65,20 +66,7 @@ class Form{
         }
         if(this.#StepNumber >= 1 && this.#StepNumber < 4) this.#StepNumber++;
         this.renderView();
-        if(this.#StepNumber === 3){
-            if(AllData.SubscriptionDuration == 'Yearly') this.changeToYearlyNum('#add-price','+')
-            const Allboxes = Array.from(document.querySelectorAll('#add-one-box'));
-            if(this._data.length === 0) return;
-            this._data.forEach(e=>{
-                Allboxes.forEach(el=>{
-                    if(el.querySelector('#add-one-type').innerText == e[0]){
-                        const checkbox = el.querySelector('#add-one-check');
-                        el.classList.add('sub-active')
-                        checkbox.checked = true;
-                    }
-                })
-            })
-        }
+        this.reGenerateThirdView();
         console.log(AllData);
     }
     renderBack(){
@@ -95,19 +83,7 @@ class Form{
         }
         if(this.#StepNumber === 2) this.reGeneratesecondView();
 
-        if(this.#StepNumber === 3){
-            if(AllData.SubscriptionDuration == 'Yearly') this.changeToYearlyNum('#add-price','+')
-            const Allboxes = Array.from(document.querySelectorAll('#add-one-box'));
-            this._data.forEach(e=>{
-                Allboxes.forEach(el=>{
-                    if(el.querySelector('#add-one-type').innerText == e[0]){
-                        const checkbox = el.querySelector('#add-one-check');
-                        el.classList.add('sub-active')
-                        checkbox.checked = true;
-                    }
-                })
-            })
-        }
+        this.reGenerateThirdView();
     }
     submitFirstView(e){
         e.preventDefault();
@@ -198,6 +174,22 @@ class Form{
             return '';
         }
     }
+    reGenerateThirdView(){
+        if(this.#StepNumber === 3){
+            if(AllData.SubscriptionDuration == 'Yearly') this.changeToYearlyNum('#add-price','+')
+            const Allboxes = Array.from(document.querySelectorAll('#add-one-box'));
+            this._data.forEach(e=>{
+                Allboxes.forEach(el=>{
+                    if(el.querySelector('#add-one-type').innerText == e[0]){
+                        const checkbox = el.querySelector('#add-one-check');
+                        el.classList.add('sub-active')
+                        checkbox.checked = true;
+                    }
+                })
+            })
+        }
+
+    }
     switchSub(e){
         const monthly = document.querySelector('.monthly')
         const yearly = document.querySelector('.yearly')
@@ -240,7 +232,7 @@ class Form{
             })            
             textYearly.forEach(e=> e.classList.add('hidden'))
             AllData.SubscriptionDuration = 'Monthly';
-            if(AllData.SubscriptionType) adjustSubInfo();
+            if(AllData.SubscriptionType) adjustSubInfo(`.${AllData.SubscriptionType}`);
         } 
         console.log(AllData);
     }
@@ -285,8 +277,56 @@ class Form{
                 this._data = filtered;
             }
         }
-        AllData.AddOnes = [...new Set(this._data)];
+        AllData.AddOnes = this._data;
         console.log(AllData);
+    }
+
+    adjustForthView(){
+        const totalPrice = document.querySelector('#TotalPrice');
+        totalPrice.innerHTML = '';
+        totalPrice.innerHTML = this.ForthViewHtml();
+        console.log(this.dataSum());
+    }
+    dataSum(){
+        if(AllData.AddOnes){
+            const addOneNum = AllData.AddOnes.map(e => +e.slice(-1)).reduce((prev,el) => prev + el,0)
+            console.log(addOneNum);
+            AllData.Total = addOneNum + AllData.SubscriptionPriceNum;
+            return AllData.Total
+        }else return AllData.Total = AllData.SubscriptionPriceNum;
+
+    }
+    ForthViewHtml(){
+        return`
+            <div class=" p-3 w-full bg-[#F8F9FE] rounded-lg">
+                <div class="flex justify-between items-center w-full border-b-1 border-b-[#9d9ea4] p-3">
+                    <div class="flex flex-col items-start">
+                        <h1 class="text-[#032B57]">${AllData.SubscriptionType}(${AllData.SubscriptionDuration})</h1>
+                        <button class="bg-transparent text-purple-600 hover:underline cursor-pointer">Change</button>
+                    </div>
+                    <h1 class="text-[#032B57] font-bold">${AllData.SubscriptionPrice}</h1>
+                </div>
+                ${this.returnForEachPlusSub()}
+            </div>
+
+            <div class="flex justify-between items-center w-[90%] pt-3">
+                <p class="text-[#9d9ea4]">Total (per ${AllData.SubscriptionDuration == 'Monthly' ? 'Month' : 'Year'})</p>
+                <h2 class="text-purple-600 text-lg">+$${this.dataSum()}/${AllData.SubscriptionDuration == 'Monthly' ? 'mon' : 'yr'}</h2>
+            </div>
+
+        `
+    }
+
+    returnForEachPlusSub(){
+        const addones = this._data.map(el =>{
+            return ` 
+                <div class="flex justify-between items-center w-full mt-1 p-3">
+                    <p class="text-[#9d9ea4]">${el[0]}</p>
+                    <h2 class="text-[#032B57]">${el[1]}</h2>
+                </div>
+            `
+        }).join('')
+        return addones
     }
 }
 new Form();
