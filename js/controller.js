@@ -64,6 +64,19 @@ class Form{
         if(this.#StepNumber === 2 && !AllData.SubscriptionDuration){
             AllData.SubscriptionDuration = 'Monthly';
         }
+        // if(this.#StepNumber === 3 && this._data){
+        //     let AllBtns = document.querySelectorAll('#add-one-box');
+        //     AllBtns.forEach(el=>{
+        //         if(el.classList.contains('sub-active')){
+        //             const typePrice = el.querySelector('#add-price')
+        //             const type = el.querySelector('#add-one-type')
+        //             const num = typePrice.innerText.match(/(\d+)/)
+        //             // this._data = [];
+        //             this._data.push([type.innerText,typePrice.innerText,+num[0]]);
+        //         }
+
+        //     })
+        // }
         if(this.#StepNumber >= 1 && this.#StepNumber < 4) this.#StepNumber++;
         this.renderView();
         this.reGenerateThirdView();
