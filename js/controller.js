@@ -50,6 +50,8 @@ class Form{
             this._container.innerHTML = View.ForthView();
             this.adjustForthView();
             this.renderStepsBtn('#btn-Back','click',this.renderBack.bind(this))
+            this.renderStepsBtn('#change-Sub','click',this.changeSub.bind(this))
+            this.renderStepsBtn('#confirm-Btn','click',this.confirmAll.bind(this))
             this.renderStepActive();
         }
 
@@ -64,19 +66,20 @@ class Form{
         if(this.#StepNumber === 2 && !AllData.SubscriptionDuration){
             AllData.SubscriptionDuration = 'Monthly';
         }
-        // if(this.#StepNumber === 3 && this._data){
-        //     let AllBtns = document.querySelectorAll('#add-one-box');
-        //     AllBtns.forEach(el=>{
-        //         if(el.classList.contains('sub-active')){
-        //             const typePrice = el.querySelector('#add-price')
-        //             const type = el.querySelector('#add-one-type')
-        //             const num = typePrice.innerText.match(/(\d+)/)
-        //             // this._data = [];
-        //             this._data.push([type.innerText,typePrice.innerText,+num[0]]);
-        //         }
+        if(this.#StepNumber === 3 && AllData.AddOnes?.data){
+            let AllBtns = document.querySelectorAll('#add-one-box');
+            AllData.AddOnes.data = [];
+            AllData.AddOnes.duration = AllData.SubscriptionDuration;
+            AllBtns.forEach(el=>{
+                if(el.classList.contains('sub-active')){
+                    const typePrice = el.querySelector('#add-price')
+                    const type = el.querySelector('#add-one-type')
+                    const num = typePrice.innerText.match(/(\d+)/)
+                    AllData.AddOnes.data.push([type.innerText,typePrice.innerText,+num[0]]);
+                }
 
-        //     })
-        // }
+            })
+        }
         if(this.#StepNumber >= 1 && this.#StepNumber < 4) this.#StepNumber++;
         this.renderView();
         this.reGenerateThirdView();
@@ -143,7 +146,7 @@ class Form{
         const adjustData = data.filter(e=> e !== '')
         console.log(adjustData);
         //? If valid Next Step
-        // if(adjustData.length === 3){
+        if(adjustData.length === 3){
             data.forEach((e,i)=>{
                 return AllData[keys[i]] = e;
             })
@@ -151,10 +154,7 @@ class Form{
             this.#StepNumber = 2;
             this.renderView()
             this.reGeneratesecondView()
-        // }
-        // this.#StepNumber = 2;
-        // this.renderView()
-
+        }
     }
 
     changeToYearlyNum(val,plus = undefined){
@@ -290,7 +290,7 @@ class Form{
                 this._data = filtered;
             }
         }
-        AllData.AddOnes = this._data;
+        AllData.AddOnes = {data:this._data,duration:AllData.SubscriptionDuration};
         console.log(AllData);
     }
 
@@ -302,7 +302,7 @@ class Form{
     }
     dataSum(){
         if(AllData.AddOnes){
-            const addOneNum = AllData.AddOnes.map(e => +e.slice(-1)).reduce((prev,el) => prev + el,0)
+            const addOneNum = AllData.AddOnes.data.map(e => +e.slice(-1)).reduce((prev,el) => prev + el,0)
             console.log(addOneNum);
             AllData.Total = addOneNum + AllData.SubscriptionPriceNum;
             return AllData.Total
@@ -315,11 +315,11 @@ class Form{
                 <div class="flex justify-between items-center w-full border-b-1 border-b-[#9d9ea4] p-3">
                     <div class="flex flex-col items-start">
                         <h1 class="text-[#032B57]">${AllData.SubscriptionType}(${AllData.SubscriptionDuration})</h1>
-                        <button class="bg-transparent text-purple-600 hover:underline cursor-pointer">Change</button>
+                        <button id='change-Sub' class="bg-transparent text-purple-600 hover:underline cursor-pointer">Change</button>
                     </div>
                     <h1 class="text-[#032B57] font-bold">${AllData.SubscriptionPrice}</h1>
                 </div>
-                ${this.returnForEachPlusSub()}
+                ${this.returnForEachPlusSub() ? this.returnForEachPlusSub() : ''}
             </div>
 
             <div class="flex justify-between items-center w-[90%] pt-3">
@@ -331,7 +331,7 @@ class Form{
     }
 
     returnForEachPlusSub(){
-        const addones = this._data.map(el =>{
+        const addones = AllData.AddOnes?.data.map(el =>{
             return ` 
                 <div class="flex justify-between items-center w-full mt-1 p-3">
                     <p class="text-[#9d9ea4]">${el[0]}</p>
@@ -340,6 +340,25 @@ class Form{
             `
         }).join('')
         return addones
+    }
+    changeSub(){
+        this.#StepNumber = 2;
+        this.renderView()
+        this.reGeneratesecondView();
+    }
+
+    confirmAll(){
+        this._container.innerHTML = '';
+        this._container.innerHTML = this.SubmitionView();
+    }
+    SubmitionView(){
+        return`
+            <div class="flex flex-col items-center justify-center space-y-3 w-full h-full">
+                <img src="./assets/images/icon-thank-you.svg" alt="">
+                <h1 class="text-[#032B57] text-3xl font-bold font-sans text-start">Thank you!</h1>
+                <p class="text-[#9d9ea4] text-sm w-[70%] text-center">MR.${AllData.name} Thanks for confirming your subscription! We hope you have fun using our platform. If you ever need support, please feel free to email us at ahmadalkhooly80@gmail.com</p>
+            </div>
+        `
     }
 }
 new Form();
