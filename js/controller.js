@@ -1,18 +1,19 @@
 import * as View from './AllView'
-import { AllData } from './model';
+let AllData = {};
 class Form{
     _container = document.querySelector('.container-forms')
     _StepNum = document.querySelectorAll('#Steps')
     _firstStep = document.querySelector('.step-1');
     _nextBtn;
     #StepNumber =1;
-
+    
     constructor(){
         this.renderView();
+        this.runLocalStorage();
     }
     renderStepActive(){
         this._StepNum.forEach(e=> e.classList.remove('active'))
-        this._StepNum[this.#StepNumber - 1].classList.add('active')
+        this._StepNum[this.#StepNumber >1 ? this.#StepNumber - 1 : 0].classList.add('active')
     }
     renderStepsBtn(btnName,type,func){
         const Btn = document.querySelector(btnName);
@@ -83,23 +84,19 @@ class Form{
         if(this.#StepNumber >= 1 && this.#StepNumber < 4) this.#StepNumber++;
         this.renderView();
         this.reGenerateThirdView();
+        this.SetlocalStorage();
         console.log(AllData);
     }
     renderBack(){
         if(this.#StepNumber >= 1) this.#StepNumber--;
         this.renderView();
+        this.SetlocalStorage();
         console.log(AllData);
-        if(this.#StepNumber === 1){
-            const inpName = document.querySelector('#inp-name');
-            const inpEmail = document.querySelector('#inp-email');
-            const inpPhone = document.querySelector('#inp-phone');
-            inpName.value = AllData.name;
-            inpEmail.value = AllData.email;
-            inpPhone.value = AllData.phone;
-        }
+        if(this.#StepNumber === 1) this.reGenerateFirstView();
         if(this.#StepNumber === 2) this.reGeneratesecondView();
 
         this.reGenerateThirdView();
+
     }
     submitFirstView(e){
         e.preventDefault();
@@ -144,7 +141,6 @@ class Form{
             data[2] = inpPhone.value;
         }
         const adjustData = data.filter(e=> e !== '')
-        console.log(adjustData);
         //? If valid Next Step
         if(adjustData.length === 3){
             data.forEach((e,i)=>{
@@ -154,6 +150,7 @@ class Form{
             this.#StepNumber = 2;
             this.renderView()
             this.reGeneratesecondView()
+            this.SetlocalStorage();
         }
     }
 
@@ -166,6 +163,14 @@ class Form{
                 return e.innerText = `${plus ? plus : ''}$${yearlyNum}/уг`;
             }
         })
+    }
+    reGenerateFirstView(){
+        const inpName = document.querySelector('#inp-name');
+        const inpEmail = document.querySelector('#inp-email');
+        const inpPhone = document.querySelector('#inp-phone');
+        inpName.value = AllData.name;
+        inpEmail.value = AllData.email;
+        inpPhone.value = AllData.phone;
     }
     reGeneratesecondView(){
         if(AllData.SubscriptionType){
@@ -232,6 +237,7 @@ class Form{
             AllData.SubscriptionDuration = 'Yearly';
             if(AllData.SubscriptionType) adjustSubInfo(`.${AllData.SubscriptionType}`);
             if(!AllData.SubscriptionType) adjustSubInfo('.Arcade');
+            this.SetlocalStorage();
         } 
         if(!check){
             adjustSub('unActiveSubType','ActiveSubType')
@@ -246,8 +252,9 @@ class Form{
             textYearly.forEach(e=> e.classList.add('hidden'))
             AllData.SubscriptionDuration = 'Monthly';
             if(AllData.SubscriptionType) adjustSubInfo(`.${AllData.SubscriptionType}`);
+            this.SetlocalStorage();
         } 
-        console.log(AllData);
+
     }
     checkPlan(e){
         const allBtns = document.querySelectorAll('#sub-btn');
@@ -265,6 +272,7 @@ class Form{
         AllData.SubscriptionPrice = price.innerText;
         AllData.SubscriptionPriceNum = +priceNum[0];
         AllData.SubclickedBtn = btn;
+        this.SetlocalStorage();
         console.log(AllData);
     }
 
@@ -291,6 +299,7 @@ class Form{
             }
         }
         AllData.AddOnes = {data:this._data,duration:AllData.SubscriptionDuration};
+        this.SetlocalStorage();
         console.log(AllData);
     }
 
@@ -350,6 +359,7 @@ class Form{
     confirmAll(){
         this._container.innerHTML = '';
         this._container.innerHTML = this.SubmitionView();
+        localStorage.clear()
     }
     SubmitionView(){
         return`
@@ -359,6 +369,29 @@ class Form{
                 <p class="text-[#9d9ea4] text-sm w-[70%] text-center">MR.${AllData.name} Thanks for confirming your subscription! We hope you have fun using our platform. If you ever need support, please feel free to email us at ahmadalkhooly80@gmail.com</p>
             </div>
         `
+    }
+
+    SetlocalStorage(){
+        localStorage.setItem("data",JSON.stringify(AllData))
+        localStorage.setItem('stepNum',this.#StepNumber);
+    }
+    runLocalStorage(){
+        window.addEventListener('load',()=>{
+            const data = localStorage.getItem('data');
+            let reData = JSON.parse(data);
+            let stepNum = +localStorage.getItem('stepNum');
+            Object.assign(AllData,reData)
+            console.log(AllData);
+            this.#StepNumber = +stepNum;
+            console.log(this.#StepNumber);
+            this.renderView()
+            this.renderStepActive()
+            if(this.#StepNumber === 1) this.reGenerateFirstView();
+            if(this.#StepNumber === 2) this.reGeneratesecondView();
+            this._data = AllData.AddOnes.data;
+            if(this.#StepNumber === 3) this.reGenerateThirdView()
+        })
+
     }
 }
 new Form();
