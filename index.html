@@ -8,10 +8,27 @@
     <script type="module" defer src="./js/controller.js"></script>
 </head>
 <body>
-    <div class="flex-center ">
-        <div class="flex bg-white shadow-xl w-[60%] h-[550px] rounded-4xl p-4 dark:bg-[#333232] max-sm:flex-col max-sm:">
+    <div class="sm:hidden w-full top-0">
+        <div class="bg-[url(./assets/images/bg-sidebar-mobile.svg)] bg-no-repeat h-50 bg-cover flex  justify-center items-start pt-10 space-x-4 z-10">
+            <div class="flex items-center ">
+                <h1 id="Steps" class="step-1 rounded-number">1</h1>
+            </div>
+            <div class="flex items-center ">
+                <h1 id="Steps" class="rounded-number">2</h1>
+            </div>
+            <div class="flex items-center ">
+                <h1 id="Steps" class="rounded-number">3</h1>
+            </div>
+            <div class="flex items-center ">
+                <h1 id="Steps" class="rounded-number">4</h1>
+            </div>
+        </div>
+    </div>
 
-            <div class="bg-[url(./assets/images/bg-sidebar-desktop.svg)] bg-no-repeat p-11 space-y-8 bg-cover max-sm:flex max-sm:w-full">
+    <div class="flex-center max-sm:items-start max-sm:z-50 relative bottom-22">
+        <div class="flex bg-white shadow-xl w-[60%] h-[550px] rounded-4xl p-4 dark:bg-[#333232] max-sm:w-[95%] ">
+
+            <div class="bg-[url(./assets/images/bg-sidebar-desktop.svg)] bg-no-repeat p-11 space-y-8 bg-cover max-sm:hidden">
                 <div class="flex items-center ">
                     <h1 id="Steps" class="step-1 rounded-number">1</h1>
                     <div class="steps">
@@ -42,7 +59,7 @@
                 </div>
             </div>
 
-            <div class="container-forms w-[70%]">
+            <div class="container-forms w-[70%] max-sm:w-full">
                 <!-- Step 1 -->
                 <!-- <div class="flex flex-col items-center space-y-8 w-full mt-10">
                     <div class="space-y-3 w-[65%]">
