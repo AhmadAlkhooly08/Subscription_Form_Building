@@ -1,12 +1,12 @@
 
 export const firstView = function(){
     return`
-        <div class="flex flex-col items-center space-y-8 w-full mt-10">
-            <div class="space-y-3 w-[65%]">
+        <div class="flex flex-col items-center space-y-8 w-full mt-10 ">
+            <div class="space-y-3 w-[65%] max-sm:w-full">
                 <h1 class="text-[#032B57] text-3xl font-bold font-sans dark:text-white">Personal info</h1>
                 <p class="text-[#9d9ea4] text-sm dark:text-[#d3d5de]">Please provide your name, email address, and phone number.</p>
             </div>
-            <form id='form' class="space-y-5 h-full w-[65%]" action="">
+            <form id='form' class="space-y-5 h-full w-[65%] max-sm:w-full" action="">
                 <div class="space-y-2">
                     <div id='text-required' class="flex justify-between">
                         <p class="text-[#032B57] text-sm dark:text-white">Name</p>
@@ -42,18 +42,18 @@ export const SecondView = function(){
     return`
         <div class="flex flex-col items-center  space-y-8 w-full mt-10">
             
-            <div class="space-y-3 flex flex-col items-start w-[80%]">
+            <div class="space-y-3 flex flex-col items-start w-[80%] max-sm:w-full">
                 <h1 class="text-[#032B57] text-3xl font-bold font-sans dark:text-white">Select your plan</h1>
                 <p class="text-[#9d9ea4] text-sm dark:text-[#d3d5de]">You have the option of monthly or yearly billing.</p>
             </div>
 
-            <div id='sub-btns' class="grid grid-cols-3 justify-items-center gap-8 w-[80%]">
+            <div id='sub-btns' class="grid grid-cols-3 justify-items-center gap-8 w-[80%] max-sm:w-full max-sm:flex max-sm:flex-col">
 
                 <div class="">
                     <button id='sub-btn' class="Arcade sub-btn sub-active">
-                        <img class="w-13" src="./assets/images/icon-arcade.svg" alt="">
+                        <img class="w-13 max-sm:w-10" src="./assets/images/icon-arcade.svg" alt="">
 
-                        <div class="flex flex-col items-start">
+                        <div class="flex flex-col items-start max-sm:pl-4">
                             <h1 id='type-sub' class="text-[#032B57] text-xl font-bold dark:text-white">Arcade</h1>
                             <p id='price-sub' class=" text-[#9d9ea4] text-sm dark:text-[#d3d5de]">$9/mon</p>
                             <p class="text-year text-[#032B57] text-xs font-light hidden dark:text-white">2 months free</p>
@@ -61,11 +61,11 @@ export const SecondView = function(){
                     </button>
                 </div>
 
-                <div class="">
+                <div>
                     <button id='sub-btn' class="Advanced sub-btn">
-                        <img class="w-13" src="./assets/images/icon-advanced.svg" alt="">
+                        <img class="w-13 max-sm:w-10" src="./assets/images/icon-advanced.svg" alt="">
 
-                        <div class="flex flex-col items-start">
+                        <div class="flex flex-col items-start max-sm:pl-4">
                             <h1 id='type-sub' class="text-[#032B57] text-xl font-bold dark:text-white">Advanced</h1>
                             <p id='price-sub' class=" text-[#9d9ea4] text-sm dark:text-[#d3d5de]">$12/mon</p>
                             <p class="text-year text-[#032B57] text-xs font-light hidden dark:text-white">2 months free</p>
@@ -75,9 +75,12 @@ export const SecondView = function(){
                 </div>
                 <div class="">
                     <button id='sub-btn' class="Pro sub-btn">
-                        <img class="w-13" src="./assets/images/icon-pro.svg" alt="">
+                        <div>
+                            <img class="w-13 max-sm:w-10" src="./assets/images/icon-pro.svg" alt="">
+                        
+                        </div>
 
-                        <div class="flex flex-col items-start">
+                        <div class="flex flex-col items-start max-sm:pl-4">
                             <h1 id='type-sub' class="text-[#032B57] text-xl font-bold dark:text-white">Pro</h1>
                             <p id='price-sub' class=" text-[#9d9ea4] text-sm dark:text-[#d3d5de]">$15/mon</p>
                             <p class="text-year text-[#032B57] text-xs font-light hidden dark:text-white">2 months free</p>
@@ -86,7 +89,7 @@ export const SecondView = function(){
                 </div>
             </div>
 
-            <div class="flex justify-center items-center space-x-3 bg-[#f8f9fe] rounded-lg p-2 w-[80%] dark:bg-[#494646]">
+            <div class="flex justify-center items-center space-x-3 bg-[#f8f9fe] rounded-lg p-2 w-[80%] dark:bg-[#174a8a] max-sm:w-full">
                 <h2 id='monthly' class="monthly activeSubType">Monthly</h2>
                 <label class="relative cursor-pointer">
                     <input type="checkbox" id='checkbox' class="sr-only peer">
@@ -96,7 +99,7 @@ export const SecondView = function(){
                 <h2 id='yearly' class="yearly unActiveSubType">yearly</h2>
             </div>
 
-            <div class="flex justify-between items-center mt-8 w-[80%]">
+            <div class="flex justify-between items-center mt-8 w-[80%] max-sm:w-full">
                 <button id ='btn-Back' class="back-btn">Go Back</button>
                 <button id ='Next-Btn' class="btn-next px-4 py-2 text-lg">Next Step</button>
             </div>
@@ -106,51 +109,51 @@ export const SecondView = function(){
 export const ThirdView = function(){
     return`
         <div class="flex flex-col items-center mt-10 space-y-8 w-full">
-            <div class="flex flex-col items-start space-y-3 w-[70%]">
-                <h1 class="text-[#032B57] text-3xl font-bold font-sans text-start">Pick add-ons</h1>
-                <p class="text-[#9d9ea4] text-sm">Add-ons help enhance your gaming experience.</p>
+            <div class="flex flex-col items-start space-y-3 w-[70%] max-sm:w-full">
+                <h1 class="text-[#032B57] text-3xl font-bold font-sans text-start dark:text-white">Pick add-ons</h1>
+                <p class="text-[#9d9ea4] text-sm dark:text-[#d3d5de]">Add-ons help enhance your gaming experience.</p>
             </div>
 
-            <div id='add-one-container' class="space-y-4 w-[70%]">
+            <div id='add-one-container' class="space-y-4 w-[70%] max-sm:w-full">
                 <div id='add-one-box' class="add-one">
                     <div class="flex items-center">
                         <input id='add-one-check' type="checkbox" class="size-4 accent-[#483CFF]">
                         <div class="flec flex-col ml-4">
-                            <h1 id='add-one-type' class="text-[#032B57] font-bold font-sans">Online service</h1>
-                            <p class="text-[#9d9ea4] text-sm">Access to multiplayer games</p>
+                            <h1 id='add-one-type' class="text-[#032B57] font-bold font-sans dark:text-white">Online service</h1>
+                            <p class="text-[#9d9ea4] text-sm dark:text-[#d3d5de]">Access to multiplayer games</p>
                         </div>
                     </div>
                     <div>
-                        <h1 id='add-price' class="text-[#746FC9]">+$1/mo</h1>
+                        <h1 id='add-price' class="text-[#746FC9] dark:text-purple-400">+$1/mo</h1>
                     </div>
                 </div>
                 <div id='add-one-box' class="add-one">
                     <div class="flex items-center">
                         <input id='add-one-check' type="checkbox" class="size-4 accent-[#483CFF]">
                         <div class="flec flex-col ml-4">
-                            <h1 id='add-one-type' class="text-[#032B57] font-bold font-sans">Larger storage</h1>
-                            <p class="text-[#9d9ea4] text-sm">Extra 1TB of cloud save</p>
+                            <h1 id='add-one-type' class="text-[#032B57] font-bold font-sans dark:text-white">Larger storage</h1>
+                            <p class="text-[#9d9ea4] text-sm dark:text-[#d3d5de]">Extra 1TB of cloud save</p>
                         </div>
                     </div>
                     <div>
-                        <h1 id='add-price' class="text-[#746FC9]">+$2/mo</h1>
+                        <h1 id='add-price' class="text-[#746FC9] dark:text-purple-400">+$2/mo</h1>
                     </div>
                 </div>
                 <div id='add-one-box' class="add-one">
                     <div class="flex items-center">
                         <input id='add-one-check' type="checkbox" class="size-4 accent-[#483CFF]">
                         <div class="flec flex-col ml-4">
-                            <h1 id='add-one-type' class="text-[#032B57] font-bold font-sans">Customizable Profile</h1>
-                            <p class="text-[#9d9ea4] text-sm">Custom theme on your profile</p>
+                            <h1 id='add-one-type' class="text-[#032B57] font-bold font-sans dark:text-white">Customizable Profile</h1>
+                            <p class="text-[#9d9ea4] text-sm dark:text-[#d3d5de]">Custom theme on your profile</p>
                         </div>
                     </div>
                     <div>
-                        <h1 id='add-price' class="text-[#746FC9]">+$2/mo</h1>
+                        <h1 id='add-price' class="text-[#746FC9] dark:text-purple-400">+$2/mo</h1>
                     </div>
                 </div>
             </div>
 
-            <div class="flex justify-between items-center mt-5 w-[70%]">
+            <div class="flex justify-between items-center mt-5 w-[70%] max-sm:w-full">
                 <button id ='btn-Back' class="btn-Back back-btn">Go Back</button>
                 <button id = 'Next-Btn' class="btn-next px-4 py-2 text-lg">Next Step</button>
             </div>
@@ -160,19 +163,19 @@ export const ThirdView = function(){
 export const ForthView = function(){
     return`
         <div class="flex flex-col items-center mt-10 space-y-8 w-full h-[90%]">
-            <div class="flex flex-col items-start space-y-3 w-[70%]">
-                <h1 class="text-[#032B57] text-3xl font-bold font-sans text-start">Finishing up</h1>
-                <p class="text-[#9d9ea4] text-sm">Double-check everything looks OK before confirming.</p>
+            <div class="flex flex-col items-start space-y-3 w-[70%] max-sm:w-full">
+                <h1 class="text-[#032B57] text-3xl font-bold font-sans text-start dark:text-white">Finishing up</h1>
+                <p class="text-[#9d9ea4] text-sm dark:text-[#d3d5de]">Double-check everything looks OK before confirming.</p>
             </div>
 
-            <div id='TotalPrice' class="flex flex-col items-center w-[70%]">
-                <div class=" p-3 w-full bg-[#F8F9FE] rounded-lg">
+            <div id='TotalPrice' class="flex flex-col items-center w-[70%] max-sm:w-full">
+                <div class=" p-3 w-full bg-[#F8F9FE] rounded-lg dark:bg-[#174a8a]">
                     <div class="flex justify-between items-center w-full border-b-1 border-b-[#9d9ea4] p-3">
                         <div class="flex flex-col items-start">
-                            <h1 class="text-[#032B57]">Arcade (Monthly)</h1>
+                            <h1 class="text-[#032B57] dark:text-white">Arcade (Monthly)</h1>
                             <button id='change-Sub' class="bg-transparent text-purple-600 hover:underline cursor-pointer">Change</button>
                         </div>
-                        <h1 class="text-[#032B57] font-bold">$9/mo</h1>
+                        <h1 class="text-[#032B57] font-bold dark:text-[#d3d5de]">$9/mo</h1>
                     </div>
 
                     <div class="flex justify-between items-center w-full mt-5 p-3">
@@ -190,7 +193,7 @@ export const ForthView = function(){
                     <h2 class="text-purple-600 text-lg">+$12/mo</h2>
                 </div>
             </div>
-            <div class="flex items-end h-full w-[70%]">
+            <div class="flex items-end h-full w-[70%] max-sm:w-full">
                 <div class="flex justify-between items-center w-full">
                     <button id ='btn-Back' class="btn-Back back-btn">Go Back</button>
                     <button id ='confirm-Btn' class="btn-next px-5 py-2 text-lg bg-[#726ae3] hover:bg-[#938cfe]">Confirm</button>

@@ -231,7 +231,7 @@ class Form{
 
         }
         if(check){
-            adjustSub('ActiveSubType','unActiveSubType')
+            adjustSub('activeSubType','unActiveSubType')
             this.changeToYearlyNum('#price-sub')
             textYearly.forEach(e=> e.classList.remove('hidden'))
             AllData.SubscriptionDuration = 'Yearly';
@@ -240,7 +240,7 @@ class Form{
             this.SetlocalStorage();
         } 
         if(!check){
-            adjustSub('unActiveSubType','ActiveSubType')
+            adjustSub('unActiveSubType','activeSubType')
             const allPrice =  document.querySelectorAll('#price-sub');
             allPrice.forEach(e=>{
                 let num = e.innerText.match(/(\d+)/)
@@ -320,20 +320,20 @@ class Form{
     }
     ForthViewHtml(){
         return`
-            <div class=" p-3 w-full bg-[#F8F9FE] rounded-lg">
+            <div class=" p-3 w-full bg-[#F8F9FE] rounded-lg dark:bg-[#174a8a]">
                 <div class="flex justify-between items-center w-full border-b-1 border-b-[#9d9ea4] p-3">
                     <div class="flex flex-col items-start">
-                        <h1 class="text-[#032B57]">${AllData.SubscriptionType}(${AllData.SubscriptionDuration})</h1>
-                        <button id='change-Sub' class="bg-transparent text-purple-600 hover:underline cursor-pointer">Change</button>
+                        <h1 class="text-[#032B57] dark:text-white">${AllData.SubscriptionType}(${AllData.SubscriptionDuration})</h1>
+                        <button id='change-Sub' class="bg-transparent dark:text-purple-400 hover:underline cursor-pointer">Change</button>
                     </div>
-                    <h1 class="text-[#032B57] font-bold">${AllData.SubscriptionPrice}</h1>
+                    <h1 class="text-[#032B57] font-bold dark:text-white">${AllData.SubscriptionPrice}</h1>
                 </div>
                 ${this.returnForEachPlusSub() ? this.returnForEachPlusSub() : ''}
             </div>
 
             <div class="flex justify-between items-center w-[90%] pt-3">
                 <p class="text-[#9d9ea4]">Total (per ${AllData.SubscriptionDuration == 'Monthly' ? 'Month' : 'Year'})</p>
-                <h2 class="text-purple-600 text-lg">+$${this.dataSum()}/${AllData.SubscriptionDuration == 'Monthly' ? 'mon' : 'yr'}</h2>
+                <h2 class="text-purple-600 text-lg dark:text-purple-400">+$${this.dataSum()}/${AllData.SubscriptionDuration == 'Monthly' ? 'mon' : 'yr'}</h2>
             </div>
 
         `
@@ -343,8 +343,8 @@ class Form{
         const addones = AllData.AddOnes?.data.map(el =>{
             return ` 
                 <div class="flex justify-between items-center w-full mt-1 p-3">
-                    <p class="text-[#9d9ea4]">${el[0]}</p>
-                    <h2 class="text-[#032B57]">${el[1]}</h2>
+                    <p class="text-[#9d9ea4] dark:text-[#d3d5de]">${el[0]}</p>
+                    <h2 class="text-[#032B57] dark:text-white">${el[1]}</h2>
                 </div>
             `
         }).join('')
@@ -365,8 +365,8 @@ class Form{
         return`
             <div class="flex flex-col items-center justify-center space-y-3 w-full h-full">
                 <img src="./assets/images/icon-thank-you.svg" alt="">
-                <h1 class="text-[#032B57] text-3xl font-bold font-sans text-start">Thank you!</h1>
-                <p class="text-[#9d9ea4] text-sm w-[70%] text-center">MR.${AllData.name} Thanks for confirming your subscription! We hope you have fun using our platform. If you ever need support, please feel free to email us at ahmadalkhooly80@gmail.com</p>
+                <h1 class="text-[#032B57] text-3xl font-bold font-sans text-start dark:text-white">Thank you!</h1>
+                <p class="text-[#9d9ea4] text-sm w-[70%] text-center dark:text-[#d3d5de]">MR.${AllData.name} Thanks for confirming your subscription! We hope you have fun using our platform. If you ever need support, please feel free to email us at ahmadalkhooly80@gmail.com</p>
             </div>
         `
     }
@@ -388,7 +388,7 @@ class Form{
             this.renderStepActive()
             if(this.#StepNumber === 1) this.reGenerateFirstView();
             if(this.#StepNumber === 2) this.reGeneratesecondView();
-            this._data = AllData.AddOnes.data;
+            if(this._data.length > 0) this._data = AllData.AddOnes.data;
             if(this.#StepNumber === 3) this.reGenerateThirdView()
         })
 
