@@ -40,7 +40,7 @@ export const firstView = function(){
 
 export const SecondView = function(){
     return`
-        <div class="flex flex-col items-center  space-y-8 w-full mt-10">
+        <div class="flex flex-col items-center  space-y-8 w-full sm:mt-10 max-sm:mt-5">
             
             <div class="space-y-3 flex flex-col items-start w-[80%] max-sm:w-full">
                 <h1 class="text-[#032B57] text-3xl font-bold font-sans dark:text-white">Select your plan</h1>
@@ -49,10 +49,11 @@ export const SecondView = function(){
 
             <div id='sub-btns' class="grid grid-cols-3 justify-items-center gap-8 w-[80%] max-sm:w-full max-sm:flex max-sm:flex-col">
 
-                <div class="">
+                <div>
                     <button id='sub-btn' class="Arcade sub-btn sub-active">
-                        <img class="w-13 max-sm:w-10" src="./assets/images/icon-arcade.svg" alt="">
-
+                        <div class="">
+                            <img class="w-13 max-sm:w-10" src="./assets/images/icon-arcade.svg" alt="">
+                        </div>
                         <div class="flex flex-col items-start max-sm:pl-4">
                             <h1 id='type-sub' class="text-[#032B57] text-xl font-bold dark:text-white">Arcade</h1>
                             <p id='price-sub' class=" text-[#9d9ea4] text-sm dark:text-[#d3d5de]">$9/mon</p>
@@ -63,7 +64,9 @@ export const SecondView = function(){
 
                 <div>
                     <button id='sub-btn' class="Advanced sub-btn">
-                        <img class="w-13 max-sm:w-10" src="./assets/images/icon-advanced.svg" alt="">
+                        <div class="">
+                            <img class="w-13 max-sm:w-10" src="./assets/images/icon-advanced.svg" alt="">
+                        </div>    
 
                         <div class="flex flex-col items-start max-sm:pl-4">
                             <h1 id='type-sub' class="text-[#032B57] text-xl font-bold dark:text-white">Advanced</h1>
@@ -77,7 +80,6 @@ export const SecondView = function(){
                     <button id='sub-btn' class="Pro sub-btn">
                         <div>
                             <img class="w-13 max-sm:w-10" src="./assets/images/icon-pro.svg" alt="">
-                        
                         </div>
 
                         <div class="flex flex-col items-start max-sm:pl-4">
@@ -99,10 +101,14 @@ export const SecondView = function(){
                 <h2 id='yearly' class="yearly unActiveSubType">yearly</h2>
             </div>
 
-            <div class="flex justify-between items-center mt-8 w-[80%] max-sm:w-full">
-                <button id ='btn-Back' class="back-btn">Go Back</button>
+            <div class="flex justify-between items-center mt-8 w-[80%] max-sm:hidden">
+                <button id ='btn-Back' class="back-btn ">Go Back</button>
                 <button id ='Next-Btn' class="btn-next px-4 py-2 text-lg">Next Step</button>
             </div>
+        </div>
+        <div class="w-screen flex justify-between items-center p-6 bg-white relative top-30 sm:hidden">
+            <button class="back-btn btn-Back">Go Back</button>
+            <button class="btn-next px-4 py-2 text-lg Next-Btn">Next Step</button>
         </div>
     `
 }
@@ -153,10 +159,14 @@ export const ThirdView = function(){
                 </div>
             </div>
 
-            <div class="flex justify-between items-center mt-5 w-[70%] max-sm:w-full">
+            <div class="flex justify-between items-center mt-5 w-[70%] max-sm:w-full max-sm:hidden">
                 <button id ='btn-Back' class="btn-Back back-btn">Go Back</button>
                 <button id = 'Next-Btn' class="btn-next px-4 py-2 text-lg">Next Step</button>
             </div>
+        </div>
+        <div class="w-screen flex justify-between items-center p-6 bg-white relative top-30 sm:hidden">
+            <button class="back-btn btn-Back">Go Back</button>
+            <button class="btn-next px-4 py-2 text-lg Next-Btn">Next Step</button>
         </div>
     `
 }

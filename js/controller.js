@@ -32,7 +32,9 @@ class Form{
             this._container.innerHTML = '';
             this._container.innerHTML = View.SecondView();
             this.renderStepsBtn('#btn-Back','click',this.renderBack.bind(this))
+            this.renderStepsBtn('.btn-Back','click',this.renderBack.bind(this))
             this.renderStepsBtn('#Next-Btn','click',this.renderNext.bind(this))
+            this.renderStepsBtn('.Next-Btn','click',this.renderNext.bind(this))
             this.renderStepsBtn('#sub-btns','click',this.checkPlan.bind(this))
             this.renderStepsBtn('#checkbox','change',this.switchSub.bind(this))
             this.renderStepActive();
