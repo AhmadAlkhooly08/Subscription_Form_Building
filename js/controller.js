@@ -3,7 +3,9 @@ let AllData = {};
 class Form{
     _container = document.querySelector('.container-forms')
     _StepNum = document.querySelectorAll('#Steps')
+    _StepNum2 = document.querySelectorAll('.Steps')
     _firstStep = document.querySelector('.step-1');
+    _firstStep2 = document.querySelector('#step-1');
     _nextBtn;
     #StepNumber =1;
     
@@ -14,6 +16,8 @@ class Form{
     renderStepActive(){
         this._StepNum.forEach(e=> e.classList.remove('active'))
         this._StepNum[this.#StepNumber >1 ? this.#StepNumber - 1 : 0].classList.add('active')
+        this._StepNum2.forEach(e=> e.classList.remove('active'))
+        this._StepNum2[this.#StepNumber >1 ? this.#StepNumber - 1 : 0].classList.add('active')
     }
     renderStepsBtn(btnName,type,func){
         const Btn = document.querySelector(btnName);
@@ -22,6 +26,7 @@ class Form{
 
     renderView(){
         this._firstStep.classList.add('active');
+        this._firstStep2.classList.add('active');
         if(this.#StepNumber === 1){
             this._container.innerHTML = '';
             this._container.innerHTML = View.firstView();
@@ -32,9 +37,7 @@ class Form{
             this._container.innerHTML = '';
             this._container.innerHTML = View.SecondView();
             this.renderStepsBtn('#btn-Back','click',this.renderBack.bind(this))
-            this.renderStepsBtn('.btn-Back','click',this.renderBack.bind(this))
             this.renderStepsBtn('#Next-Btn','click',this.renderNext.bind(this))
-            this.renderStepsBtn('.Next-Btn','click',this.renderNext.bind(this))
             this.renderStepsBtn('#sub-btns','click',this.checkPlan.bind(this))
             this.renderStepsBtn('#checkbox','change',this.switchSub.bind(this))
             this.renderStepActive();
@@ -176,18 +179,33 @@ class Form{
     }
     reGeneratesecondView(){
         if(AllData.SubscriptionType){
+            let monthly = document.querySelector('.monthly')
+            let yearly = document.querySelector('.yearly')
+
+            const adjustSub = function(class1,class2){
+                monthly.classList.remove(class1)
+                monthly.classList.add(class2)
+                yearly.classList.remove(class2)
+                yearly.classList.add(class1)
+            }
+
             const allBtns = document.querySelectorAll('#sub-btn');
             const btn = document.querySelector(`.${AllData.SubscriptionType}`);
             allBtns.forEach(e=> e.classList.remove('sub-active'))
             btn.classList.add('sub-active');
     
             let unceheck = document.querySelector('#checkbox');
-            if(AllData.SubscriptionDuration == 'Monthly') unceheck.checked = false;
+            if(AllData.SubscriptionDuration == 'Monthly'){
+                adjustSub('unActiveSubType','activeSubType')
+                unceheck.checked = false;
+            }
     
             if(AllData.SubscriptionDuration == 'Yearly'){
                 const textYearly = document.querySelectorAll('.text-year')
                 this.changeToYearlyNum('#price-sub')
                 textYearly.forEach(e=> e.classList.remove('hidden'))
+                adjustSub('activeSubType','unActiveSubType')
+
                 unceheck.checked = true;
             }
         }else{
@@ -365,7 +383,7 @@ class Form{
     }
     SubmitionView(){
         return`
-            <div class="flex flex-col items-center justify-center space-y-3 w-full h-full">
+            <div class="flex flex-col items-center justify-center space-y-3 w-full h-full max-sm:h-[500px]">
                 <img src="./assets/images/icon-thank-you.svg" alt="">
                 <h1 class="text-[#032B57] text-3xl font-bold font-sans text-start dark:text-white">Thank you!</h1>
                 <p class="text-[#9d9ea4] text-sm w-[70%] text-center dark:text-[#d3d5de]">MR.${AllData.name} Thanks for confirming your subscription! We hope you have fun using our platform. If you ever need support, please feel free to email us at ahmadalkhooly80@gmail.com</p>

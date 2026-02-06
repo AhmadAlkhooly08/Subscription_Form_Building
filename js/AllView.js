@@ -6,15 +6,15 @@ export const firstView = function(){
                 <h1 class="text-[#032B57] text-3xl font-bold font-sans dark:text-white">Personal info</h1>
                 <p class="text-[#9d9ea4] text-sm dark:text-[#d3d5de]">Please provide your name, email address, and phone number.</p>
             </div>
-            <form id='form' class="space-y-5 h-full w-[65%] max-sm:w-full" action="">
-                <div class="space-y-2">
+            <form id='form' class="space-y-5 h-full w-[65%] max-sm:w-full max-sm:flex max-sm:flex-col max-sm:items-center" action="">
+                <div class="space-y-2 max-sm:w-[90%]">
                     <div id='text-required' class="flex justify-between">
                         <p class="text-[#032B57] text-sm dark:text-white">Name</p>
                         <p id='inp-errorName' class="inp-error text-red-500 text-sm invisible">enter your name please</p>
                     </div>
                     <input id='inp-name' class="inp-style" type="text">
                 </div>
-                <div class="space-y-2">
+                <div class="space-y-2 max-sm:w-[90%]">
                     <div class="flex justify-between">
                         <p class="text-[#032B57] text-sm dark:text-white">Email Address</p>
                         <p id='inp-errorEmail' class="text-red-500 text-sm invisible">Please enter a valid email</p>
@@ -22,7 +22,7 @@ export const firstView = function(){
 
                     <input id='inp-email' class="inp-style" type="text">
                 </div>
-                <div class="space-y-2">
+                <div class="space-y-2 max-sm:w-[90%]">
                     <div class="flex justify-between">
                         <p class="text-[#032B57] text-sm dark:text-white">Phone Number</p>
                         <p id='inp-errorPhone' class="text-red-500 text-sm invisible">Please enter a valid number</p>
@@ -30,7 +30,7 @@ export const firstView = function(){
                     <input id='inp-phone' class="inp-style" type="text">
                 </div>
 
-                <div class="flex items-end justify-end mt-13">
+                <div class="flex items-end justify-end mt-13 max-sm:absolute max-sm:bottom-0 max-sm:w-screen max-sm:bg-white max-sm:p-7 max-sm:dark:bg-[#333232]">
                     <input type="submit" value="Next Step" class="btn-next">
                 </div>
             </form>
@@ -101,14 +101,10 @@ export const SecondView = function(){
                 <h2 id='yearly' class="yearly unActiveSubType">yearly</h2>
             </div>
 
-            <div class="flex justify-between items-center mt-8 w-[80%] max-sm:hidden">
+            <div class="flex justify-between items-center mt-8 w-[80%] max-sm:absolute max-sm:bottom-0 max-sm:w-screen max-sm:bg-white max-sm:p-7 max-sm:dark:bg-[#333232]">
                 <button id ='btn-Back' class="back-btn ">Go Back</button>
                 <button id ='Next-Btn' class="btn-next px-4 py-2 text-lg">Next Step</button>
             </div>
-        </div>
-        <div class="w-screen flex justify-between items-center p-6 bg-white relative top-30 sm:hidden">
-            <button class="back-btn btn-Back">Go Back</button>
-            <button class="btn-next px-4 py-2 text-lg Next-Btn">Next Step</button>
         </div>
     `
 }
@@ -159,14 +155,10 @@ export const ThirdView = function(){
                 </div>
             </div>
 
-            <div class="flex justify-between items-center mt-5 w-[70%] max-sm:w-full max-sm:hidden">
+            <div class="flex justify-between items-center mt-5 w-[70%] max-sm:absolute max-sm:bottom-0 max-sm:w-screen max-sm:bg-white max-sm:dark:bg-[#333232] max-sm:p-7">
                 <button id ='btn-Back' class="btn-Back back-btn">Go Back</button>
                 <button id = 'Next-Btn' class="btn-next px-4 py-2 text-lg">Next Step</button>
             </div>
-        </div>
-        <div class="w-screen flex justify-between items-center p-6 bg-white relative top-30 sm:hidden">
-            <button class="back-btn btn-Back">Go Back</button>
-            <button class="btn-next px-4 py-2 text-lg Next-Btn">Next Step</button>
         </div>
     `
 }
@@ -203,8 +195,8 @@ export const ForthView = function(){
                     <h2 class="text-purple-600 text-lg">+$12/mo</h2>
                 </div>
             </div>
-            <div class="flex items-end h-full w-[70%] max-sm:w-full">
-                <div class="flex justify-between items-center w-full">
+            <div class="flex items-end h-full w-[70%] max-sm:justify-center">
+                <div class="flex justify-between items-center w-full max-sm:absolute max-sm:bottom-0 max-sm:w-screen max-sm:bg-white max-sm:dark:bg-[#333232] max-sm:p-7">
                     <button id ='btn-Back' class="btn-Back back-btn">Go Back</button>
                     <button id ='confirm-Btn' class="btn-next px-5 py-2 text-lg bg-[#726ae3] hover:bg-[#938cfe]">Confirm</button>
                 </div>
